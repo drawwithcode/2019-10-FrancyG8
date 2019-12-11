@@ -7,11 +7,12 @@ var catbackground;
 var myDiscoSong;
 
 
-function preload(){
+function preload() {
   //--Loading my external material
-  disco = loadModel("assets/discoball.obj", true);
-  catbackground = createImg("assets/discoball.obj", true);
-  myDiscoSong = loadSound("./assets/starWars.mp3");
+  disco = loadModel("./assets/discoball.obj", true);
+  catbackground = loadImage("./assets/discoDj.gif", true);
+  iridescent = loadImage("./assets/iridescent.jpg", true);
+  myDiscoSong = loadSound("./assets/discoCats.mp3");
 
 }
 
@@ -24,16 +25,70 @@ function setup() {
   //--Analysing my song
   analyzer = new p5.Amplitude();
   analyzer.setInput(myDiscoSong);
+  fft = new p5.FFT();
+  myDiscoSong.amp(2);
 
 }
 
 
 function draw() {
+  //-Just in case my gif doesn't load
   background(0);
-  catbackground.position(0, 0);
 
-  rotateY(frameCount);
-  scale(2);
-  normalMaterial();
+  //--Calling my background
+  backgroundImage();
+
+  //--My songs are under control
+  volume = analyzer.getLevel();
+  volume = map(volume, 0, 1, 0, height);
+
+  var mybass = fft.getEnergy("bass");
+
+  //--Controlling my disco ball
+  rotateY((frameCount * mouseX) / 300);
+  scale(1 + (mouseY/ 300));
+  // scale(2);
+
+  var locX = mouseX - width;
+  var locY = mouseY - height;
+
+  noStroke();
+  ambientLight(100, 100, 100);
+  directionalLight(255, 255, 0, 0, 1, 0.5);
+  pointLight(0, 255, 255, locX, locY, 0);
+  pointLight(255, 0, 0, locY, locX, 0);
+  texture(iridescent);
   model(disco);
+
+  
+
+}
+
+
+function backgroundImage() {
+  //--defining my background image adapted to my screen
+  push();
+  translate(0, 0);
+  imageMode(CENTER);
+  let scale = Math.max(width / catbackground.width, height / catbackground.height);
+  image(catbackground, 0, 0, catbackground.width * scale, catbackground.height * scale);
+  pop();
+
+}
+
+
+function mousePressed() {
+  //--The song plays and pauses with the pressure of my mouse
+  if (myDiscoSong.isPlaying()) {
+    myDiscoSong.pause();
+  } else {
+    myDiscoSong.play();
+
+  }
+}
+
+
+function windowResized() {
+  //--Function to resize my project
+  resizeCanvas(windowWidth, windowHeight);
 }
