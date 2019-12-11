@@ -5,6 +5,7 @@ This is your private disco, enjoy carefully*/
 var disco;
 var catbackground;
 var myDiscoSong;
+var analyzer;
 
 
 function preload() {
@@ -25,9 +26,6 @@ function setup() {
   //--Analysing my song
   analyzer = new p5.Amplitude();
   analyzer.setInput(myDiscoSong);
-  fft = new p5.FFT();
-  myDiscoSong.amp(2);
-
 }
 
 
@@ -42,12 +40,9 @@ function draw() {
   volume = analyzer.getLevel();
   volume = map(volume, 0, 1, 0, height);
 
-  var mybass = fft.getEnergy("bass");
-
   //--Controlling my disco ball
   rotateY((frameCount * mouseX) / 300);
-  scale(1 + (mouseY/ 300));
-  // scale(2);
+  scale(1 + (mouseY/1000));
 
   var locX = mouseX - width;
   var locY = mouseY - height;
@@ -60,7 +55,10 @@ function draw() {
   texture(iridescent);
   model(disco);
 
-  
+  push();
+  translate(0, -windowHeight/4);
+  cylinder(2, windowHeight/2);
+  pop();
 
 }
 
