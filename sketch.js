@@ -14,7 +14,6 @@ function preload() {
   catbackground = loadImage("./assets/discoDj.gif", true);
   iridescent = loadImage("./assets/iridescent.jpg", true);
   myDiscoSong = loadSound("./assets/discoCats.mp3");
-
 }
 
 
@@ -37,17 +36,18 @@ function draw() {
   analyzer = new p5.Amplitude();
   analyzer.setInput(myDiscoSong);
 
-  //--My songs are under control
+  //--My song is under control
   volume = analyzer.getLevel();
   volume = map(volume, 0, 1, 0, height);
 
-  //--Controlling my disco ball
+  //--Controlling the movement of my disco ball
   rotateY((frameCount * mouseX) / 300);
   scale(1 + (mouseY / 1000));
 
   var locX = mouseX - width;
   var locY = mouseY - height;
 
+  //--Controlling the light of my disco ball
   noStroke();
   ambientLight(100, 100, 100);
   directionalLight(255, 255, 0, 0, 1, 0.5);
@@ -56,6 +56,7 @@ function draw() {
   texture(iridescent);
   model(disco);
 
+  //--Controlling the movement of the hanger
   push();
   translate(0, -windowHeight / 4);
   cylinder(2, windowHeight / 2);
@@ -82,7 +83,6 @@ function mousePressed() {
     myDiscoSong.pause();
   } else {
     myDiscoSong.play();
-
   }
 }
 
