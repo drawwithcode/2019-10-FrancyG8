@@ -1,5 +1,4 @@
-/* Hello, list assignment, right? I'll make my best!
-This is your private disco, enjoy carefully*/
+/* This is your private disco, enjoy it carefully */
 
 //--Setting my variables
 var disco;
@@ -58,14 +57,6 @@ function draw() {
   translate(-windowWidth / 2, -windowHeight / 2);
   text(myText, 40, windowHeight - 30);
   pop();
-
-  // //--Analysing my song
-  // analyzer = new p5.Amplitude();
-  // analyzer.setInput(myDiscoSong);
-  //
-  // //--My song is under control
-  // volume = analyzer.getLevel();
-  // volume = map(volume, 0, 1, 0, height);
 
   //--Controlling the movement of my disco ball
   rotateY((frameCount * mouseX) / 300);
