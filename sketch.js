@@ -6,6 +6,7 @@ var disco;
 var catbackground;
 var myDiscoSong;
 var analyzer;
+let myFont;
 
 
 function preload() {
@@ -14,6 +15,7 @@ function preload() {
   catbackground = loadImage("./assets/discoDj.gif", true);
   iridescent = loadImage("./assets/iridescent.jpg", true);
   myDiscoSong = loadSound("./assets/discoCats.mp3");
+  myFont = loadFont('./assets/RobotoSlab-Regular.ttf');
 }
 
 
@@ -37,6 +39,16 @@ function draw() {
   fill(255);
   translate(-windowWidth / 2, -windowHeight / 2);
   rect(0, windowHeight - 80, windowWidth, 80);
+  pop();
+
+  push();
+  var myText = "Click everywhere to play or pause the purrrest song";
+  noStroke();
+  fill('Black');
+  textFont(myFont);
+  textSize(20);
+  translate(-windowWidth / 2, -windowHeight / 2);
+  text(myText, 40, windowHeight - 30);
   pop();
 
   //--Analysing my song
@@ -86,10 +98,8 @@ function mousePressed() {
   //--The song plays and pauses with the pressure of my mouse
   if (myDiscoSong.isPlaying()) {
     myDiscoSong.pause();
-    background(0);
   } else {
     myDiscoSong.play();
-    background.setAlpha(128 + 128 * sin(millis() / 1000));
   }
 }
 
