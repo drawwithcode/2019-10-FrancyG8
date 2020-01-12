@@ -31,6 +31,13 @@ function draw() {
   //--Calling my background
   backgroundImage();
 
+  //--Instructions
+  push();
+  noStroke();
+  fill(255);
+  translate(-windowWidth / 2, -windowHeight / 2);
+  rect(0, windowHeight - 80, windowWidth, 80);
+  pop();
 
   //--Analysing my song
   analyzer = new p5.Amplitude();
@@ -61,7 +68,6 @@ function draw() {
   translate(0, -windowHeight / 4);
   cylinder(2, windowHeight / 2);
   pop();
-
 }
 
 
@@ -73,7 +79,6 @@ function backgroundImage() {
   let scale = Math.max(width / catbackground.width, height / catbackground.height);
   image(catbackground, 0, 0, catbackground.width * scale, catbackground.height * scale);
   pop();
-
 }
 
 
@@ -81,8 +86,10 @@ function mousePressed() {
   //--The song plays and pauses with the pressure of my mouse
   if (myDiscoSong.isPlaying()) {
     myDiscoSong.pause();
+    background(0);
   } else {
     myDiscoSong.play();
+    background.setAlpha(128 + 128 * sin(millis() / 1000));
   }
 }
 
