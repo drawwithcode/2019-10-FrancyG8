@@ -2,6 +2,7 @@
 
 //--Setting my variables
 var disco;
+var iridescent;
 var catbackground;
 var myDiscoSong;
 var analyzer;
@@ -11,8 +12,8 @@ let myFont;
 function preload() {
   //--Loading my external material
   disco = loadModel("./assets/discoball.obj", true);
-  catbackground = loadImage("./assets/discoDj.gif", true);
   iridescent = loadImage("./assets/iridescent.jpg", true);
+  catbackground = loadImage("./assets/discoDj.gif", true);
   myDiscoSong = loadSound("./assets/disco-Cats.mp3");
   myFont = loadFont('./assets/RobotoSlab-Regular.ttf');
 }
@@ -42,42 +43,39 @@ function draw() {
 
   //--Instructions
   push();
-  noStroke();
-  fill(255);
-  translate(-windowWidth / 2, -windowHeight / 2);
-  rect(0, windowHeight - 80, windowWidth, 80);
+    noStroke();
+    fill(255);
+    translate(-windowWidth / 2, -windowHeight / 2);
+    rect(0, windowHeight - 80, windowWidth, 80);
+
+    var myText = "Click everywhere to play or pause the purrrest song";
+    noStroke();
+    fill('Black');
+    textFont(myFont);
+    textSize(20);
+    text(myText, 40, windowHeight - 30);
   pop();
 
   push();
-  var myText = "Click everywhere to play or pause the purrrest song";
-  noStroke();
-  fill('Black');
-  textFont(myFont);
-  textSize(20);
-  translate(-windowWidth / 2, -windowHeight / 2);
-  text(myText, 40, windowHeight - 30);
-  pop();
+    //--Controlling the movement of my disco ball
+    rotateY((frameCount * mouseX) / 300);
+    scale(1 + (mouseY / 1000));
 
-  //--Controlling the movement of my disco ball
-  rotateY((frameCount * mouseX) / 300);
-  scale(1 + (mouseY / 1000));
+    //--Controlling the light of my disco ball
+    var locX = mouseX - width;
+    var locY = mouseY - height;
+    noStroke();
+    directionalLight(0, 0, 255, -100, -100, -60);
+    directionalLight(0, 255, 0, 0, 50, -60);
+    pointLight(100, 100, 255, 0, -locY, 0);
+    pointLight(255, 0, 0, locX, locY, 0);
+    // texture(iridescent);
+    specularMaterial(255);
+    model(disco);
 
-  var locX = mouseX - width;
-  var locY = mouseY - height;
-
-  //--Controlling the light of my disco ball
-  noStroke();
-  ambientLight(100, 100, 100);
-  directionalLight(255, 255, 0, 0, 1, 0.5);
-  pointLight(0, 255, 255, locX, locY, 0);
-  pointLight(255, 0, 0, locY, locX, 0);
-  texture(iridescent);
-  model(disco);
-
-  //--Controlling the movement of the hanger
-  push();
-  translate(0, -windowHeight / 4);
-  cylinder(2, windowHeight / 2);
+    //--Controlling the movement of the pole
+    translate(0, -windowHeight / 4);
+    cylinder(2, windowHeight / 2);
   pop();
 }
 
@@ -85,10 +83,10 @@ function draw() {
 function backgroundImage() {
   //--defining my background image adapted to my screen
   push();
-  translate(0, 0);
-  imageMode(CENTER);
-  let scale = Math.max(width / catbackground.width, height / catbackground.height);
-  image(catbackground, 0, 0, catbackground.width * scale, catbackground.height * scale);
+    translate(0, 0);
+    imageMode(CENTER);
+    let scale = Math.max(width / catbackground.width, height / catbackground.height);
+    image(catbackground, 0, 0, catbackground.width * scale, catbackground.height * scale);
   pop();
 }
 
