@@ -14,7 +14,7 @@ function preload() {
   disco = loadModel("./assets/discoball.obj", true);
   catbackground = loadImage("./assets/discoDj.gif", true);
   iridescent = loadImage("./assets/iridescent.jpg", true);
-  myDiscoSong = loadSound("./assets/discoCats.mp3");
+  myDiscoSong = loadSound("./assets/disco-Cats.mp3");
   myFont = loadFont('./assets/RobotoSlab-Regular.ttf');
 }
 
