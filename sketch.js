@@ -22,10 +22,6 @@ function setup() {
   //--Setting my canvas
   createCanvas(windowWidth, windowHeight, WEBGL);
   angleMode(DEGREES);
-
-  //--Analysing my song
-  analyzer = new p5.Amplitude();
-  analyzer.setInput(myDiscoSong);
 }
 
 
@@ -36,13 +32,18 @@ function draw() {
   //--Calling my background
   backgroundImage();
 
+
+  //--Analysing my song
+  analyzer = new p5.Amplitude();
+  analyzer.setInput(myDiscoSong);
+
   //--My songs are under control
   volume = analyzer.getLevel();
   volume = map(volume, 0, 1, 0, height);
 
   //--Controlling my disco ball
   rotateY((frameCount * mouseX) / 300);
-  scale(1 + (mouseY/1000));
+  scale(1 + (mouseY / 1000));
 
   var locX = mouseX - width;
   var locY = mouseY - height;
@@ -56,8 +57,8 @@ function draw() {
   model(disco);
 
   push();
-  translate(0, -windowHeight/4);
-  cylinder(2, windowHeight/2);
+  translate(0, -windowHeight / 4);
+  cylinder(2, windowHeight / 2);
   pop();
 
 }
