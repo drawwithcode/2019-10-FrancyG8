@@ -23,6 +23,14 @@ function setup() {
   //--Setting my canvas
   createCanvas(windowWidth, windowHeight, WEBGL);
   angleMode(DEGREES);
+
+  //--Analysing my song
+  analyzer = new p5.Amplitude();
+  analyzer.setInput(myDiscoSong);
+
+  //--My song is under control
+  volume = analyzer.getLevel();
+  volume = map(volume, 0, 1, 0, height);
 }
 
 
@@ -51,13 +59,13 @@ function draw() {
   text(myText, 40, windowHeight - 30);
   pop();
 
-  //--Analysing my song
-  analyzer = new p5.Amplitude();
-  analyzer.setInput(myDiscoSong);
-
-  //--My song is under control
-  volume = analyzer.getLevel();
-  volume = map(volume, 0, 1, 0, height);
+  // //--Analysing my song
+  // analyzer = new p5.Amplitude();
+  // analyzer.setInput(myDiscoSong);
+  //
+  // //--My song is under control
+  // volume = analyzer.getLevel();
+  // volume = map(volume, 0, 1, 0, height);
 
   //--Controlling the movement of my disco ball
   rotateY((frameCount * mouseX) / 300);
