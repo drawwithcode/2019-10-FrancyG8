@@ -3,6 +3,8 @@
 //--Setting my variables
 var disco;
 var iridescent;
+var pesce;
+var pescetexture;
 var catbackground;
 var myDiscoSong;
 var analyzer;
@@ -13,6 +15,8 @@ function preload() {
   //--Loading my external material
   disco = loadModel("./assets/discoball.obj", true);
   iridescent = loadImage("./assets/iridescent.jpg", true);
+  pesce = loadModel("./assets/fish.obj", true);
+  pescetexture = loadImage("./assets/fish_texture.png", true);
   catbackground = loadImage("./assets/discoDj.gif", true);
   myDiscoSong = loadSound("./assets/disco-Cats.mp3");
   myFont = loadFont('./assets/RobotoSlab-Regular.ttf');
@@ -57,9 +61,10 @@ function draw() {
   pop();
 
   push();
-    //--Controlling the movement of my disco ball
+    //--Controlling the movement of my elements
+    translate(0, 0, 200);
     rotateY((frameCount * mouseX) / 300);
-    scale(1 + (mouseY / 1000));
+    scale(0.5 + (mouseY / 1000));
 
     //--Controlling the light of my disco ball
     var locX = mouseX - width;
@@ -74,8 +79,21 @@ function draw() {
     model(disco);
 
     //--Controlling the movement of the pole
-    translate(0, -windowHeight / 4);
-    cylinder(2, windowHeight / 2);
+    translate(0, -windowHeight / 2);
+    cylinder(2, windowHeight);
+
+    //--Controlling the movement of my first fish
+    translate(0, windowHeight/2, 150);
+    rotateY(90);
+    scale(mouseY / 1000);
+    texture(pescetexture);
+    model(pesce);
+
+    //--Controlling the movement of my second fish
+    translate(-50, 100, 150);
+    scale(2);
+    texture(pescetexture);
+    model(pesce);
   pop();
 }
 
